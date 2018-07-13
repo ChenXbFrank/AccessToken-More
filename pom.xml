@@ -45,6 +45,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!--热部署 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!--ojdbc  lib文件夹下面有了，所以不需要了-->
 		<!--<dependency>
 			<groupId>com.oracle</groupId>

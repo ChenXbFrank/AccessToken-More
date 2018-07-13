@@ -1,6 +1,5 @@
 package com.pls.accesstoken.web;
 
-import com.pls.accesstoken.model.AccessTokens;
 import com.pls.accesstoken.model.SellerPublicNumber;
 import com.pls.accesstoken.service.AccessTokenService;
 import com.pls.accesstoken.service.SellerPublicService;
@@ -22,26 +21,24 @@ public class HomeController {
     @Autowired
     private SellerPublicService sellerPublicService;
 
-    @PostMapping("/hello")
-    public String hello(@RequestParam("appid") String appid){
-        String tokenByAppId = accessTokenService.getTokenByAppId(appid);
-        return "hello world "+tokenByAppId;
-    }
-
-    @PostMapping("/getTokenByAppId")
-    public String getTokenByAppId(@RequestParam("appid") String appid){
-        return accessTokenService.getTokenByAppId(appid);
-    }
-
     /**
-     * 获取getAccessToken只需要传递appid过来即可
+     * 这种是根据appid查询出整个对象，然后再获取需要的值
      * @param appid
      * @return
      */
-    @PostMapping("/getAccessTokenByAppId")
-    public String getAccessTokenByAppId(@RequestParam("appid") String appid){
-        AccessTokens accessTokenByAppId = accessTokenService.getAccessTokenByAppId(appid);
-        return accessTokenByAppId.getAccessToken();
+    @PostMapping("/findByAppId")
+    public String findByAppId(@RequestParam("appid") String appid){
+        return accessTokenService.findByAppId(appid).getAccessToken();
+    }
+
+    /**
+     * 这种方式根据appid查询出结果值
+     * @param appid
+     * @return
+     */
+    @PostMapping("/findAccessByAppId")
+    public String findAccessByAppId(@RequestParam("appid") String appid){
+        return accessTokenService.findAccessByAppId(appid);
     }
 
     /**
