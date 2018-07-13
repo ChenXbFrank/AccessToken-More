@@ -9,13 +9,20 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by 81046 on 2018-07-12
  */
 public interface AccessTokenDao {
-
     /**
      * 根據APPID查詢AccessTokens
      * @param appid
      * @return
+     * //TODO 这种方式查不出对象的原因是没有将对象属性和表列名一一对应，导致最后查询出来映射不上来，结果就为空了
+     * //TODO 解决方法：在mapper文件中实现并解决了该问题
      */
     @Select("select * from TB_ACCESS_TOKENS where appid = #{appid}")
+    //TODO  解决了上面所述问题  越来越多的坑 嘻嘻
+    @Results({
+		@Result(property="appid",column="APPID"),
+		@Result(property="accessToken",column="ACCESS_TOKEN"),
+		@Result(property="saveTime",column="SAVE_TIME")
+	})
     AccessTokens getAccessTokenByAppId(@Param("appid")String appid);
 
     /**
@@ -47,4 +54,15 @@ public interface AccessTokenDao {
     @Transactional
     @Update({ "update TB_ACCESS_TOKENS set access_token = #{accessToken},save_time = #{saveTime} where appid = #{appid}" })
     int updateAccessTokensByAppId(@Param("accessToken")String accessToken, @Param("saveTime")String saveTime,@Param("appid") String appid);
+
+    /**
+     * 根据appid查询accessTokens对象
+     */
+    AccessTokens findByAppId(@Param("appid")String appid);
+
+    /**
+     * 根据appid查询accessTokens对象的accessToken值
+     */
+    String findAccessByAppId(@Param("appid")String appid);
+
 }

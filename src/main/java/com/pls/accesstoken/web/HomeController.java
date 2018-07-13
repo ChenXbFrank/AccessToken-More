@@ -26,6 +26,16 @@ public class HomeController {
      * @param appid
      * @return
      */
+    @PostMapping("/getAccessTokenByAppId")
+    public String getAccessTokenByAppId(@RequestParam("appid") String appid){
+        return accessTokenService.getAccessTokenByAppId(appid).getAccessToken();
+    }
+
+    /**
+     * 这种是根据appid查询出整个对象，然后再获取需要的值
+     * @param appid
+     * @return
+     */
     @PostMapping("/findByAppId")
     public String findByAppId(@RequestParam("appid") String appid){
         return accessTokenService.findByAppId(appid).getAccessToken();

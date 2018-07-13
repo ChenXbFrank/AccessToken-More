@@ -54,4 +54,22 @@ public class AccessTokenService {
     public int updateAccessTokensByAppId(String accessToken,String saveTime,String appid){
         return accessTokenDao.updateAccessTokensByAppId(accessToken,saveTime,appid);
     }
+
+    /**
+     * 根據APPID查詢AccessToken  xml为文件
+     * @param appid
+     * @return
+     */
+    public AccessTokens findByAppId(String appid){
+        return accessTokenDao.findByAppId(appid);
+    }
+
+    /**
+     * 根据appid直接查询accessToken  xml文件
+     * @param appid
+     * @return
+     */
+    public String findAccessByAppId(String appid){
+        return accessTokenDao.findAccessByAppId(appid);
+    }
 }
