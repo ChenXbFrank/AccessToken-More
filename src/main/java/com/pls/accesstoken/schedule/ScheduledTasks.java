@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class ScheduledTasks {
     private AccessTokenService accessTokenService;
 
     /**
+     * 项目运行后的每5秒一次
      * 5000 --> 5s
      * 这里需要每7000s 去更新数据库所有的accessToken   7000000 ms
      */
@@ -52,6 +54,30 @@ public class ScheduledTasks {
                 }
             }
         }
+    }
+
+    //    每分钟启动
+    @Scheduled(cron = "0 0/1 * * * ?")
+    public void timerToNow(){
+        System.out.println("now time:" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
     }
+
+    //    项目启动后每50秒启动
+    @Scheduled(fixedDelay = 50000)
+    public void timerToReportCount(){
+        for (int i = 0; i < 10; i++){
+            System.out.println("<================its" + i + "count===============>" + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        }
+    }
+
+    //    第一次启动在项目启动后延迟50秒开始，之后每6秒执行一次
+    @Scheduled(initialDelay = 50000,fixedRate = 6000)
+    public void timerToReport(){
+        for (int i = 0; i < 10; i++){
+            System.out.println("<================delay :" + i + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "count===============>");
+
+        }
+    }
+
 }

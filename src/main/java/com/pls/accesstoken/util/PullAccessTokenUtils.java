@@ -24,7 +24,6 @@ public class PullAccessTokenUtils {
         String json = HttpUtils.get(Url);
         Gson gson = new Gson();
         PullAccessToken accessToken = gson.fromJson(json, PullAccessToken.class);
-        String access_token = accessToken.getAccess_token();
-        return access_token;
+        return accessToken.getAccess_token();
     }
 }

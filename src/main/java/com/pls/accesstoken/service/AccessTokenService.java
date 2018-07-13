@@ -2,7 +2,6 @@ package com.pls.accesstoken.service;
 
 import com.pls.accesstoken.dao.AccessTokenDao;
 import com.pls.accesstoken.model.AccessTokens;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
