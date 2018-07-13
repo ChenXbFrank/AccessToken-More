@@ -41,7 +41,7 @@ public class HttpAspect {
         //method
         LOGGER.info("method={}",request.getMethod());
         //ip
-        LOGGER.info("id={}",request.getRemoteAddr());
+        LOGGER.info("ip={}",request.getRemoteAddr());
         //class_method
         LOGGER.info("class_method={}",joinPoint.getSignature().getDeclaringTypeName() + "," + joinPoint.getSignature().getName());
         //args[]
