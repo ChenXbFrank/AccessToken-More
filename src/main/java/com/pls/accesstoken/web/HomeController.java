@@ -5,6 +5,9 @@ import com.pls.accesstoken.service.AccessTokenService;
 import com.pls.accesstoken.service.SellerPublicService;
 import com.pls.accesstoken.util.PullAccessTokenUtils;
 import com.pls.accesstoken.util.ResultUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/home")
+@Api("HomeController相关的api")
 public class HomeController {
 
     @Autowired
@@ -23,9 +27,11 @@ public class HomeController {
 
     /**
      * 这种是根据appid查询出整个对象，然后再获取需要的值
-     * @param appid
+     * @param appid   wx3db6ea684d097397
      * @return
      */
+    @ApiOperation(value = "根据appid查询accessToken信息", notes = "根据appid查询出整个对象，然后再获取需要的值")
+    @ApiImplicitParam(name = "appid", value = "公众号的appid", paramType = "/getAccessTokenByAppId", required = true, dataType = "String")
     @PostMapping("/getAccessTokenByAppId")
     public Result getAccessTokenByAppId(@RequestParam("appid") String appid){
         return ResultUtil.success(accessTokenService.getAccessTokenByAppId(appid).getAccessToken());
@@ -52,9 +58,9 @@ public class HomeController {
     }
 
     /**
-     * 获取所有的公众号信息
+     * 获取所有的公众号信息   produces是防止中文乱码
      */
-    @GetMapping("/getAllList")
+    @GetMapping(value = "/getAllList",produces = "application/json; charset=utf-8")
     public Result getAllList(){
         return ResultUtil.success(sellerPublicService.getAllList());
     }
