@@ -40,7 +40,7 @@ public class UserController {
      * @throws IOException
      */
     @RequestMapping(value = "/exportUserInfo", method = RequestMethod.GET)
-    public void downloadAllClassmate(HttpServletResponse response) throws IOException {
+    public void exportUserInfo(HttpServletResponse response) throws IOException {
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("信息表");
 
