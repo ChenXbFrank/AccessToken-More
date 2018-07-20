@@ -27,7 +27,6 @@ public class HttpAspect {
     private ExceptionHandle exceptionHandle;
 
     @Pointcut("execution(public * com.pls.accesstoken.web.*.*(..))")
-//  @Pointcut("@annotation(logOnly)")
     public void log(){
 
     }

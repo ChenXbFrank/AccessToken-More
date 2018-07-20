@@ -4,13 +4,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * Created by 81046 on 2018-07-12
  */
 @Entity
 @Table(name = "TB_ACCESS_TOKENS")
-public class AccessTokens {
+public class AccessTokens implements Serializable{
 
     @Id
     @Column(name = "APPID")
