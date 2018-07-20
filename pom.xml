@@ -146,6 +146,14 @@
 			<version>3.17</version>
 		</dependency>
 		<!--poi 导出文件需要的jar-->
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>1.5.14.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
