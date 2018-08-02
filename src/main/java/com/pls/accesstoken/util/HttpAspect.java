@@ -31,6 +31,10 @@ public class HttpAspect {
 
     }
 
+    /**
+     * 这里是添加所有的请求的日志
+     * @param joinPoint
+     */
     @Before("log()")
     public void doBefore(JoinPoint joinPoint){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -47,7 +51,13 @@ public class HttpAspect {
         LOGGER.info("args={}",joinPoint.getArgs());
     }
 
-    @Around("log()")
+    /**
+     * 这里是配置让返回结果全为Result
+     * @param proceedingJoinPoint    这样是不能跳转页面的
+     * @return
+     * @throws Throwable
+     */
+    /*@Around("log()")
     public Result doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Result result = null;
         try {
@@ -62,7 +72,11 @@ public class HttpAspect {
         }
     }
 
-    @AfterReturning(pointcut = "log()",returning = "object")//打印输出结果
+    /**
+     * 打印输出结果
+     * @param object
+     */
+    @AfterReturning(pointcut = "log()",returning = "object")
     public void doAfterReturing(Object object){
         LOGGER.info("response={}",object.toString());
     }
