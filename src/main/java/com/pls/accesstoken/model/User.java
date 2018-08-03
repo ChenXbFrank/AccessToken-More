@@ -20,7 +20,7 @@ public class User implements Serializable{
     private String name;
 
     @Column(name = "AGE")
-    private int age;
+    private String age;
 
     public String getId() {
         return id;
@@ -38,11 +38,11 @@ public class User implements Serializable{
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

@@ -24,5 +24,19 @@
         from TB_USER where NAME  like '%'||#{name}||'%'
     </select>
 
+    <!-- 对应userDao中的insertUser方法，  -->
+    <insert id="insertUser" parameterType="com.pls.accesstoken.model.User">
+        insert into TB_USER(id, name, age) values (#{id}, #{name}, #{age})
+    </insert>
+
+    <!-- 对应userDao中的updateUserByName方法 -->
+    <update id="updateUserByName" parameterType="com.pls.accesstoken.model.User">
+        update TB_USER set id = #{id}, age = #{age} where name = #{name}
+    </update>
+
+    <!-- 对应userDao中的deleteUserById方法 -->
+    <delete id="deleteUserById" parameterType="java.lang.String">
+        delete from TB_USER where id = #{id}
+    </delete>
 
 </mapper>

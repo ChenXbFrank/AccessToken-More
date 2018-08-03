@@ -1,15 +1,13 @@
 package com.pls.accesstoken.dao;
 
-import com.pls.accesstoken.model.AccessTokens;
 import com.pls.accesstoken.model.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 81046 on 2018-08-02
@@ -32,4 +30,10 @@ public interface UserDao {
     List<User> getAllUserList();
 
     List<User> getUserListByName(@Param("name")String name);
+
+    void updateUserByName(User user);
+
+    void deleteUserById(@Param("id")String id);
+
+    void insertUser(User user);
 }

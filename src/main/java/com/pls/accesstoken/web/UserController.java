@@ -6,6 +6,7 @@ import com.pls.accesstoken.model.Result;
 import com.pls.accesstoken.model.User;
 import com.pls.accesstoken.repository.UserRepository;
 import com.pls.accesstoken.service.UserService;
+import com.pls.accesstoken.util.DateUtil;
 import com.pls.accesstoken.util.ResultUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by 81046 on 2018-07-20
@@ -36,11 +37,13 @@ public class UserController {
     @ApiOperation(value = "获取所有的用户", notes = "获取所有的用户")
     @GetMapping(value = "/getUserList",produces = "application/json; charset=utf-8")
     public Result getUserList(){
+        //分页对repository不起作用的
         return ResultUtil.success(userRepository.findAll());
     }
 
     /**
      * 需要分页显示，使用mybatis
+     *     http://localhost:8087/user/getUsersByPage
      */
     @ApiOperation(value = "获取所有的用户分页显示", notes = "获取所有的用户分页显示")
     @GetMapping(value = "/getUsersByPage",produces = "application/json; charset=utf-8")
@@ -56,7 +59,7 @@ public class UserController {
 
     /**
      * 根据名字模糊查询 分页显示
-     *     http://localhost:8087/user/getUserByName?name=%E5%B0%8F
+     *     http://localhost:8087/user/getUserByName?name=小
      */
     @ApiOperation(value = "根据名字模糊查询的用户分页显示", notes = "根据名字模糊查询的用户分页显示")
     @GetMapping(value = "/getUserByName",produces = "application/json; charset=utf-8")
@@ -72,20 +75,42 @@ public class UserController {
         return ResultUtil.success(pageInfo);
     }
 
+    /**
+     * 修改用户信息  根据名字修改年纪
+     */
+    @GetMapping(value = "/updateUser",produces = "application/json; charset=utf-8")
+    public Result updateUser(@RequestParam("name") String name){
+        System.out.println(DateUtil.date2Str(new Date(),DateUtil.DATE_TIME_PATTERN));
+        User user=new User();
+        user.setName(name);
+        user.setAge("18");
+        user.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+        userService.updateUserByName(user);
+        System.out.println(DateUtil.date2Str(new Date(),DateUtil.DATE_TIME_PATTERN));
+        return ResultUtil.success(user);
+    }
+
 
     /**
-     * 这里测试保存10万条用户信息 (模拟数据)
+     * 保存用户信息
      */
     @ApiOperation(value = "新增用户", notes = "新增用户")
     @GetMapping(value = "/saveUsers",produces = "application/json; charset=utf-8")
     public Result saveUsers(){
+        /*
+        //这里测试保存10万条用户信息 (模拟数据)
         for (int i = 0; i < 100001; i++) {
             User user=new User();
             user.setId(i+"");
             user.setName("测试"+i);
-            user.setAge(10+i);
+            user.setAge(10+i+"");
             userRepository.save(user);
-        }
+        }*/
+        User user=new User();
+        user.setName("小小");
+        user.setAge("18");
+        user.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+        userService.saveUser(user);
         return ResultUtil.success();
     }
 
