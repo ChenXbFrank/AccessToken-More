@@ -1,7 +1,6 @@
 package com.pls.accesstoken.service;
 
 import com.pls.accesstoken.dao.UserDao;
-import com.pls.accesstoken.model.AccessTokens;
 import com.pls.accesstoken.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -72,6 +69,13 @@ public class UserService {
      */
     public void updateUserByName(User user){
         userDao.updateUserByName(user);
+        // 缓存存在，删除缓存  更新时，先更新用户，然后再将缓存中的信息删除
+        /*String key = "userId_" + user.getId();
+        boolean hasKey = redisTemplate.hasKey(key);
+        if (hasKey) {
+            redisTemplate.delete(key);
+            LOGGER.info("UserService.updateUserByName() : 从缓存中删除用户 >> " + user.toString());
+        }*/
     }
 
     /**
@@ -79,5 +83,19 @@ public class UserService {
      */
     public void saveUser(User user){
         userDao.insertUser(user);
+    }
+
+    /**
+     * 删除用户
+     */
+    public void deleteUserById(String id){
+        userDao.deleteUserById(id);
+        // 将缓存中的信息删除
+        /*String key = "userId_" + user.getId();
+        boolean hasKey = redisTemplate.hasKey(key);
+        if (hasKey) {
+            redisTemplate.delete(key);
+            LOGGER.info("UserService.updateUserByName() : 从缓存中删除用户 >> " + user.toString());
+        }*/
     }
 }

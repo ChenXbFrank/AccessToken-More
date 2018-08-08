@@ -24,10 +24,10 @@ import java.util.List;
 
 @SpringBootApplication
 //定时器需要导入
-//@EnableScheduling
+@EnableScheduling
 //mapper/dao需要导入
 @MapperScan(basePackages = "com.pls.accesstoken.dao")
-//访问接口文档  http://localhost:8089/swagger-ui.html
+//访问接口文档  http://localhost:8087/swagger-ui.html
 @EnableSwagger2
 public class AccesstokenApplication extends WebMvcConfigurationSupport {
 
