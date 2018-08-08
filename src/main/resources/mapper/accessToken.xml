@@ -7,7 +7,8 @@
     <sql id="accessToken">
         APPID as appid,
         ACCESS_TOKEN as accessToken,
-        SAVE_TIME as saveTime
+        SAVE_TIME as saveTime,
+        SELLER_PUBLIC_NAME as sellerPublicName
     </sql>
 
     <!--根据appid查询单个对象-->

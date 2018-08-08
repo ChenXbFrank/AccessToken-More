@@ -19,10 +19,12 @@ public interface AccessTokenDao {
     @Select("select * from TB_ACCESS_TOKENS where appid = #{appid}")
     //TODO  解决了上面所述问题  越来越多的坑 嘻嘻
     @Results({
-		@Result(property="appid",column="APPID"),
-		@Result(property="accessToken",column="ACCESS_TOKEN"),
-		@Result(property="saveTime",column="SAVE_TIME")
-	})
+            @Result(property="appid",column="APPID"),
+            @Result(property="accessToken",column="ACCESS_TOKEN"),
+            @Result(property="saveTime",column="SAVE_TIME"),
+            @Result(property="sellerPublicName",column="SELLER_PUBLIC_NAME"
+            )
+    })
     AccessTokens getAccessTokenByAppId(@Param("appid")String appid);
 
     /**
@@ -39,10 +41,10 @@ public interface AccessTokenDao {
      * @param accessToken
      * @param saveTime
      */
-    @Insert("insert into TB_ACCESS_TOKENS(appid,access_token,save_time) values(#{appid},#{accessToken},#{saveTime})")
+    @Insert("insert into TB_ACCESS_TOKENS(appid,access_token,save_time,seller_public_name) values(#{appid},#{accessToken},#{saveTime},#{sellerPublicName})")
     @Options(useGeneratedKeys = true, keyProperty = "appid", keyColumn = "appid")
     @Transactional
-    void save(@Param("appid") String appid,@Param("accessToken")String accessToken, @Param("saveTime")String saveTime);
+    void save(@Param("appid") String appid,@Param("accessToken")String accessToken, @Param("saveTime")String saveTime, @Param("sellerPublicName")String sellerPublicName);
 
     /**
      * 根据APPID修改AccessTokens
@@ -52,8 +54,8 @@ public interface AccessTokenDao {
      * @return
      */
     @Transactional
-    @Update({ "update TB_ACCESS_TOKENS set access_token = #{accessToken},save_time = #{saveTime} where appid = #{appid}" })
-    int updateAccessTokensByAppId(@Param("accessToken")String accessToken, @Param("saveTime")String saveTime,@Param("appid") String appid);
+    @Update({ "update TB_ACCESS_TOKENS set access_token = #{accessToken},save_time = #{saveTime},seller_public_name = #{sellerPublicName} where appid = #{appid}" })
+    int updateAccessTokensByAppId(@Param("accessToken")String accessToken, @Param("saveTime")String saveTime,@Param("sellerPublicName")String sellerPublicName,@Param("appid") String appid);
 
     /**
      * 根据appid查询accessTokens对象

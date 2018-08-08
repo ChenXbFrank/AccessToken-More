@@ -23,6 +23,10 @@ public class AccessTokens implements Serializable{
     @Column(name = "SAVE_TIME")
     private String saveTime;
 
+    @Column(name = "SELLER_PUBLIC_NAME")
+    private String sellerPublicName;
+
+
     public String getAppid() {
         return appid;
     }
@@ -45,6 +49,14 @@ public class AccessTokens implements Serializable{
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+    }
+
+    public String getSellerPublicName() {
+        return sellerPublicName;
+    }
+
+    public void setSellerPublicName(String sellerPublicName) {
+        this.sellerPublicName = sellerPublicName;
     }
 
     public AccessTokens() {
